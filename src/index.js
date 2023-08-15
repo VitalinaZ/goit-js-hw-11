@@ -19,13 +19,23 @@ let lightbox = new SimpleLightbox('.gallery a', {
 formEl.addEventListener('submit', onSearchBtn);
 loadMoreBtnEl.addEventListener('click', addImg);
 
+
+
+  
+
+
+
 function onSearchBtn(evt) {
   currentPage = 1;
   evt.preventDefault();
   divBox.innerHTML = '';
  
   loadMoreBtnEl.classList.add('visually-hidden');
-  findData = evt.currentTarget.searchQuery.value;
+  findData = evt.currentTarget.searchQuery.value.trim();
+    if (!findData) {
+    return;
+  };
+
   fetchImages(findData, currentPage)
     .then(resp => {
       createMarkUp(resp.hits, resp.totalHits);
@@ -41,6 +51,7 @@ function addImg() {
       addMarkUp(resp.hits);
     })
     .catch(err => console.log(err));
+
 }
 
 function createMarkUp(data, hits) {

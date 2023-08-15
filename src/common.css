@@ -14,13 +14,29 @@
   border-radius: 5px;
   border: 1px black;
 }
-
 .gallery {
-  margin-top: 40px;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 20px;
+  align-items: end;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.photo-card-img {
+  display: block;
+  width: 350px;
+  max-height: 200px;
+}
+.photo-card {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: end;
+  margin: 0 auto;
+  height: 100%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
 }
 
 .info {
@@ -30,6 +46,8 @@
 
 .info-item {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .visually-hidden {
   position: absolute;

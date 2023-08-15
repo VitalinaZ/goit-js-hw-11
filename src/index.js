@@ -2,8 +2,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { fetchImages } from './img.api';
-
-// import {createMarkUp} from './markup'
+// import { createMarkUp } from './js/markup';
 
 const formEl = document.querySelector('.search-form');
 const loadMoreBtnEl = document.querySelector('.load-more');
@@ -24,6 +23,7 @@ function onSearchBtn(evt) {
   currentPage = 1;
   evt.preventDefault();
   divBox.innerHTML = '';
+ 
   loadMoreBtnEl.classList.add('visually-hidden');
   findData = evt.currentTarget.searchQuery.value;
   fetchImages(findData, currentPage)
@@ -31,7 +31,8 @@ function onSearchBtn(evt) {
       createMarkUp(resp.hits, resp.totalHits);
     })
     .catch(err => console.log(err));
-};
+  
+}
 
 function addImg() {
   currentPage += 1;
@@ -41,11 +42,6 @@ function addImg() {
     })
     .catch(err => console.log(err));
 }
-
-divBox.innerHTML = imgData;
-  Notify.success(`Hooray! We found ${hits} totalHits images.`);
-  loadMoreBtnEl.classList.remove('visually-hidden');
-  lightbox.refresh();
 
 function createMarkUp(data, hits) {
   totalPage = hits / 40;
@@ -90,11 +86,6 @@ function createMarkUp(data, hits) {
   loadMoreBtnEl.classList.remove('visually-hidden');
   lightbox.refresh();
 }
-
-
-
-
-
 
 function addMarkUp(data) {
   const imgData = data

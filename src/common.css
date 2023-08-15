@@ -1,17 +1,26 @@
-.search-form {
-  padding: 30px;
-
+.search-container {
   display: flex;
-  gap: 10px;
   justify-content: center;
+  align-items: center;
+
+  padding-top: 50px;
+  padding-bottom: 50px;
   background-color: paleturquoise;
+}
+.search-form {
+  width: 500px;
+  height: 40px;
+
+  border-radius: 5px;
+  border: 1px black;
 }
 
 .gallery {
+  margin-top: 40px;
+  gap: 20px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  margin-top: 50px;
+  justify-content: center;
 }
 
 .info {
@@ -37,4 +46,7 @@
 .load-more {
   display: block;
   margin: 50px auto 100px;
+  padding: 20px 30px;
+  border-radius: 5px;
+  background-color: paleturquoise;
 }

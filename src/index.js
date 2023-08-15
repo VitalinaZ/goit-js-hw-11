@@ -3,9 +3,11 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { fetchImages } from './img.api';
 
+// import {createMarkUp} from './markup'
+
 const formEl = document.querySelector('.search-form');
-const divBox = document.querySelector('.gallery');
 const loadMoreBtnEl = document.querySelector('.load-more');
+const divBox = document.querySelector('.gallery');
 
 let currentPage = 1;
 let totalPage = 1;
@@ -27,16 +29,23 @@ function onSearchBtn(evt) {
   fetchImages(findData, currentPage)
     .then(resp => {
       createMarkUp(resp.hits, resp.totalHits);
-    }).catch(err => console.log(err));
-}
+    })
+    .catch(err => console.log(err));
+};
 
 function addImg() {
   currentPage += 1;
   fetchImages(findData, currentPage)
     .then(resp => {
       addMarkUp(resp.hits);
-    }).catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
 }
+
+divBox.innerHTML = imgData;
+  Notify.success(`Hooray! We found ${hits} totalHits images.`);
+  loadMoreBtnEl.classList.remove('visually-hidden');
+  lightbox.refresh();
 
 function createMarkUp(data, hits) {
   totalPage = hits / 40;
@@ -50,7 +59,7 @@ function createMarkUp(data, hits) {
         views,
         comments,
         downloads,
-        }) => `<div class="photo-card">
+      }) => `<div class="photo-card">
   <a class="gallery__link" href="${largeImageURL}"><img src=${webformatURL} alt=${tags} loading="lazy"  width=320 height=214 /></a>
   <div class="info">
     <p class="info-item">
@@ -66,7 +75,9 @@ function createMarkUp(data, hits) {
       <b>Downloads </br>${downloads}</b>
     </p>
   </div>
-</div>`).join('');
+</div>`
+    )
+    .join('');
 
   if (!imgData) {
     Notify.failure(
@@ -79,6 +90,11 @@ function createMarkUp(data, hits) {
   loadMoreBtnEl.classList.remove('visually-hidden');
   lightbox.refresh();
 }
+
+
+
+
+
 
 function addMarkUp(data) {
   const imgData = data
@@ -107,7 +123,9 @@ function addMarkUp(data) {
       <b>Downloads </br>${downloads}</b>
     </p>
   </div>
-</div>`).join('');
+</div>`
+    )
+    .join('');
   divBox.insertAdjacentHTML('beforeend', imgData);
   lightbox.refresh();
   if (currentPage > totalPage) {
